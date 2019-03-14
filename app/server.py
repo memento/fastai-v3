@@ -2,6 +2,7 @@ from starlette.applications import Starlette
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
+#from starlette import *
 import uvicorn, aiohttp, asyncio
 from io import BytesIO
 
