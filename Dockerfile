@@ -9,6 +9,8 @@ RUN pip install --upgrade pip
 
 RUN pip install -vvv --no-cache-dir -r requirements.txt --upgrade
 
+RUN rm -Rf app
+
 COPY app app/
 
 RUN python app/server.py
