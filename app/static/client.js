@@ -24,7 +24,8 @@ function analyze() {
     xhr.onload = function(e) {
         if (this.readyState === 4) {
             var response = JSON.parse(e.target.responseText);
-            el('result-label').innerHTML = `Result = ${response['result']}`;
+            el('result-label').innerHTML = `Resultat = ${response['result']}`;
+            el('details-label').innerHTML = JSON.stringify(response, null, 4);
         }
         el('analyze-button').innerHTML = 'Analyser';
     }
