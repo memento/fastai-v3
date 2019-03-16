@@ -11,7 +11,3 @@ sudo docker cp app/static neural_marvel_instance_1:/app/static
 sudo docker exec neural_marvel_instance_1 rm -Rf app/view
 #Copy local view app folder into container neural_marvel_instance_1
 sudo docker cp app/view neural_marvel_instance_1:/app/view
-##Stop container
-#sudo docker container stop neural_marvel_instance_1
-##Launch container (detach process)
-#sudo docker run -p 5042:5042 --name neural_marvel_instance_1 -d neural_marvel
