@@ -14,7 +14,10 @@ function showPicked(input) {
 
 function analyze() {
     var uploadFiles = el('file-input').files;
-    if (uploadFiles.length != 1) alert('Veuillez sélectionner une image à analyser');
+    if (uploadFiles.length != 1){
+        alert('Veuillez sélectionner une image à analyser');
+        return;
+    }
 
     el('analyze-button').innerHTML = 'Analyse en cours...';
     var xhr = new XMLHttpRequest();
@@ -24,8 +27,10 @@ function analyze() {
     xhr.onload = function(e) {
         if (this.readyState === 4) {
             var response = JSON.parse(e.target.responseText);
-            el('result-label').innerHTML = `Resultat = ${response['result']}`;
-            el('details-label').innerHTML = JSON.stringify(response, null, 4);
+            var responseTable = response['result'].split("/");
+            var result = responseTable[1]
+            el('result-label').innerHTML = `Resultat = ${result}`;
+            el('details-label').innerHTML = `Voici de détail de mon analyse : <br /> ${responseTable[2]} <br /> ${responseTable[3]} <br /> ${responseTable[4]}`;
         }
         el('analyze-button').innerHTML = 'Analyser';
     }

@@ -13,3 +13,5 @@ sudo docker rmi neural_marvel
 sudo docker build . -t neural_marvel
 #Launch container (detach process)
 sudo docker run -p 5042:5042 --name neural_marvel_instance_1 -d neural_marvel
+# mode debug : 
+#sudo docker run -p 5042:5042 --name neural_marvel_instance_1 neural_marvel

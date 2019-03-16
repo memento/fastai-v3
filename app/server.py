@@ -9,11 +9,46 @@ from io import BytesIO
 from fastai import *
 from fastai.vision import *
 
+#classes = ['black', 'grizzly', 'teddys']
+# Should be :
+#classes = ['iron_man','spider_man','captain_america']
+# But appears to be (on result) :
+#classes = ['captain_america','iron_man','spider_man']
+#Reformatted, it gives :
+classes = ['Captain America','Iron Man','Spider Man']
+
+# Functions
+
+# This function rearranges a dirty suite of numbers with exponents into a list of clean pourcentages
+def formatOutputPourcentages(my_string):
+    #my_string = str(my_string)
+    my_string = my_string.split("[")[1].split("]")[0]
+    return ["{0:.3%}".format(float(s)).zfill(7) for s in my_string.split(", ") if float(s)]
+
+# This function adds the corresponding classes to pourcentages and returns a string
+def formatOutput(my_string):
+    my_array = formatOutputPourcentages(my_string)
+    result = ""
+    increment = 0
+    for afloat in my_array:
+        result += classes[increment] + " : " + str(afloat)+"/"
+        increment+=1
+    return result
+
+# This function reformat iron_man into Iron Man, for example
+def formatResultStringIntoCustomizedString(my_string):
+    switcher = {
+        "captain_america": "Captain America",
+        "iron_man": "Iron Man",
+        "spider_man": "Spider Man"
+    }
+    return switcher.get(my_string, "Catégorie invalide")
+
 # export_file_url = 'https://www.dropbox.com/s/v6cuuvddq73d1e0/export.pkl?raw=1'
 #export_file_url = 'https://www.dropbox.com/s/6bgq8t6yextloqp/export.pkl?raw=1'
 export_file_name = 'export.pkl'
 
-classes = ['black', 'grizzly', 'teddys']
+
 path = Path(__file__).parent
 
 app = Starlette()
@@ -58,7 +93,10 @@ async def analyze(request):
     img = open_image(BytesIO(img_bytes))
     #prediction = learn.predict(img)[0]
     prediction_object = learn.predict(img)
-    return JSONResponse({'result': str(prediction_object)})
+    #return JSONResponse({'result': str(prediction_object)})
+    result = str(learn.predict(img)[0])
+
+    return JSONResponse({'result': "result/"+formatResultStringIntoCustomizedString(result)+"/"+str(formatOutput(str(learn.predict(img)[2])))})
 
 if __name__ == '__main__':
     if 'serve' in sys.argv: uvicorn.run(app=app, host='0.0.0.0', port=5042)

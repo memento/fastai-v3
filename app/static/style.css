@@ -1,5 +1,5 @@
 body {
-    background-color: #fff;
+    background-color: #fdf4f4;
 }
 
 .no-display {
@@ -39,12 +39,16 @@ body {
     margin-top: 0.5em;
     padding: 10px;
     font-size: 13px;
+    font-size: xx-large;
 }
 
 .details-label {
     margin-top: 0.5em;
     padding: 10px;
     font-size: 13px;
+    font-size: x-small-large;
+    #text-align:left;
+    color: #42aa9d;
 }
 
 button.choose-file-button {
